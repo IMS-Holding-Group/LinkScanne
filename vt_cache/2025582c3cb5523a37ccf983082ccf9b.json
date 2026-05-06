@@ -1,0 +1,11 @@
+{
+  "vt_score": 0.07291666666666667,
+  "malicious_count": 7,
+  "total_engines": 96,
+  "cached": false,
+  "report_link": "https://www.virustotal.com/gui/url/127f80b6f7d5f86a30ddb97674b4bb8e3f4248da29462cf44076bca2a0eafe17/detection/u-127f80b6f7d5f86a30ddb97674b4bb8e3f4248da29462cf44076bca2a0eafe17-1740137429",
+  "status": "clean",
+  "message": "الرابط سليم",
+  "scan_date": "2025-02-21 11:30:29",
+  "cached_at": "2026-05-06T17:20:46.253552"
+}
