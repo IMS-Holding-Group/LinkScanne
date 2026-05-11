@@ -3,7 +3,6 @@ services:
     name: linkscanne-api
     runtime: python
     plan: free
-    # لا تعتمد على build-render.sh حتى لا يفشل النشر إن نُسي رفع السكربت
     buildCommand: pip install --upgrade pip wheel setuptools && pip install -r requirements.txt
     startCommand: gunicorn --bind 0.0.0.0:$PORT --workers 2 --threads 4 app:app
     envVars:
