@@ -10,6 +10,6 @@ requests==2.31.0
 python-whois==0.7.3
 tldextract==3.4.0
 beautifulsoup4==4.12.2
-playwright==1.39.1
+playwright==1.48.0
 cryptography==39.0.1
 gunicorn==21.2.0
