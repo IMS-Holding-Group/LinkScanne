@@ -67,7 +67,7 @@ except Exception as e:
         'sandbox': {'timeout': 8}
     }
 
-app.config['SECRET_KEY'] = config.get('app', {}).get('secret_key', 'default_secret_key_change_in_production_12345')
+app.config['SECRET_KEY'] = config.get('app', {}).get('secret_key', '')
 app.config['SESSION_COOKIE_HTTPONLY'] = True
 app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'  # Lax للسماح بالكوكيز في نفس الموقع
 app.config['SESSION_COOKIE_SECURE'] = False  # False للتطوير المحلي (HTTP)، True للإنتاج (HTTPS)
@@ -221,9 +221,14 @@ def calculate_final_score(ml_result, dynamic_result, vt_result, heuristic_score)
         malicious_threshold = float(thresholds.get('malicious', 0.75))
         suspicious_threshold = float(thresholds.get('suspicious', 0.45))
         
+        ml_failed = isinstance(ml_result, dict) and ml_result.get('label') == 'error'
+
         # عتبات إضافية من احتمالات الـ ML: المجموع المرجّح وحده قد لا يتجاوز 0.75 عند إسناد ML فقط
         # مهم: إذا حسمنا التصنيف عبر احتمالات الـ ML، نرفع final_score للحد الأدنى المناسب
         # حتى لا يظهر "خبيث" بنسبة منخفضة في الواجهة.
+        if ml_failed and final_score < suspicious_threshold:
+            return final_score, 'error'
+
         if final_score >= malicious_threshold or p_mal >= 0.62:
             final_label = 'malicious'
             final_score = max(final_score, malicious_threshold)
